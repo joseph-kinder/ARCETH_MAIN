@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
+@import url("https://fonts.googleapis.com/css?family=VT323");
+
+
+.App {
+	text-align: center;
+	font-family: "Press Start 2P", "VT323";
+	color: black;
+	}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	overflow: hidden;
+}
+
+.overlay {
+	opacity: 0.85;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	position: fixed;
+}
+
+
+.background {
+  background-image: url("./assets/Epic_fantasy_battle_cinematic_dark_scenery_dramatic_lighting_4k_width-1344_height-768_seed-0ts-1690644731_idx-0.png");
+  background-size: cover; 
+  background-position: center;
+}
