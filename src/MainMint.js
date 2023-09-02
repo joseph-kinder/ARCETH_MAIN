@@ -88,7 +88,7 @@ const MainMint = ({ accounts, setAccounts}) => {
 						</div>
 					</Flex>
 					<Button
-						backgroundColor="#D6517D"
+						backgroundColor="#FF6F00"
 						borderRadius="5px"
 						boxShadow="0px 2px 2px 1px #0F0F0F"
 						color='white'
@@ -108,7 +108,7 @@ const MainMint = ({ accounts, setAccounts}) => {
 					letterSpacing='-5.5%'
 					fontFamily="VT323"
 					textShadow='0 3px #000000'
-					color="#D6517D"
+					color="#FF6F00"
 				>
 					Please connect your wallet in order to mint.
 				</Text>

@@ -1,6 +1,20 @@
 @import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
 @import url("https://fonts.googleapis.com/css?family=VT323");
 
+:root{
+    --primary-100:#FF6F00;
+    --primary-200:#dc5200;
+    --primary-300:#8d0000;
+    --accent-100:#FFD600;
+    --accent-200:#917700;
+    --text-100:#FFFFFF;
+    --text-200:#e0e0e0;
+    --bg-100:#1E1E1E;
+    --bg-200:#2d2d2d;
+    --bg-300:#454545;
+}
+      
+
 
 .App {
 	text-align: center;
@@ -31,4 +45,42 @@ body {
   background-image: url("./assets/Epic_fantasy_battle_cinematic_dark_scenery_dramatic_lighting_4k_width-1344_height-768_seed-0ts-1690644731_idx-0.png");
   background-size: cover; 
   background-position: center;
+}
+
+.carousel-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel {
+  display: flex;
+  animation: carousel-animation 10s linear infinite; /* Adjust the duration and timing function as needed */
+}
+
+.carousel img {
+  width: 100%;
+  height: auto;
+  margin-right: 20px; /* Add some space between images */
+}
+
+@keyframes carousel-animation {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%); /* Move the images to the left */
+  }
+}
+
+.slideshow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 300px; 
+}
+
+.slideshow img {
+  height: 100%;
+  margin-right: 10px;
+  object-fit: contain; 
 }
