@@ -39,7 +39,7 @@ const NavBar = ({ accounts, setAccounts }) => {
 			<Flex
 				justify="space-around"
 				align="center"
-				width="40%"
+				width="30%"
 				padding="30px">
 				<Link as={RouteLink} to="/about" color = "#FF6F00" margin="0 15px" textDecoration="none">About</Link>
 				<Spacer />
@@ -63,10 +63,10 @@ const NavBar = ({ accounts, setAccounts }) => {
 					<Button
 						backgroundColor="#FF6F00"
 						borderRadius="5px"
-						boxShadow="0px 2px 2px 1px #0F0F0F"
 						color="white"
 						cursor="pointer"
 						fontFamily="inherit"
+						fontSize="18"
 						padding="15px"
 						margin="0 15px"
 						onClick={connectAccount}>Connect</Button>
