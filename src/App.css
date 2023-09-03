@@ -50,3 +50,7 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+.FMT__container {
+  overflow: visible !important;
+}

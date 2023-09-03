@@ -41,30 +41,34 @@ function App() {
                                     ArcaneETH
                                 </Text>
                             </Flex>                        
-                            <div style={{position: 'relative'}}>
+                            <div>
                                 <Ticker 
-                                    duration={20} 
+                                    duration={40} 
                                     onMouseEnter={() => setIsPlaying(false)} 
                                     onMouseLeave={() => setIsPlaying(true)} 
                                     isPlaying={isPlaying}
+                                    style={{overflow: 'visible'}}
                                 >
                                     {images.map((item, index) => (
-                                    <div
-                                        key={index}
-                                        onMouseEnter={() => handleMouseEnter(index)}
-                                        onMouseLeave={handleMouseLeave}                                  
-                                        style={{
-                                            position: 'relative',
-                                            zIndex: hoveredIndex === index ? 2 : 1,
-                                            margin: '5px',
-                                            height: hoveredIndex === index ? '400px' : '333px', 
-                                            width: hoveredIndex === index ? '266px' : '200px',
-                                            backgroundImage: `url(${item})`, // Set the background image
-                                            backgroundSize: 'cover',
-                                            borderRadius: '21px',
-                                            transition: 'height 0.3s ease, width 0.3s ease',
-                                        }}
-                                    />
+                                        <div key={index}>
+
+                                            <img
+                                                src={item}
+                                                onMouseEnter={() => setHoveredIndex(index)}
+                                                onMouseLeave={() => setHoveredIndex(null)}                              
+                                                style={{
+                                                    //position: 'relative',
+                                                    zIndex: hoveredIndex === index ? 1 : 0,
+                                                    margin: '5px',
+                                                    height: 'auto',
+                                                    width: '200px',
+                                                    borderRadius: '21px',
+                                                    transform: hoveredIndex === index ? 'scale(1.5)' : 'none',
+                                                    transition: 'transform 0.3s ease 0.3s',
+                                                    // transformOrigin: 'center center',
+                                                }}
+                                        />
+                                        </div>
                                     ))}
                                 </Ticker>
                             </div>
