@@ -20,27 +20,17 @@ const NavBar = ({ accounts, setAccounts }) => {
 
 
 	return (
-		<Flex justify='space-between' align='center' padding='30px 30px'>
+		<Flex justify='space-between' align='center' padding='10px 30px'>
 			{/* Left Side - Social Media Icons */}
-			<Flex justify="space-around" width="40%" padding="0 75px">
-				<Link href='https://www.facebook.com'>
-					<Image src={Facebook} boxSize="42px" margin="0 15px"/>
-				</Link>
-				<Link href='https://www.twitter.com'>
-					<Image src={Twitter} boxSize="42px" margin="0 15px"/>
-				</Link>
-				<Link href='https://www.gmail.com'>
-					<Image src={Email} boxSize="42px" margin="0 15px"/>
-				</Link>
-			</Flex>
+
 
             {/* Center - Logo Image Link */}
-			<Flex justify="space-around" width="40%" padding="0 100px">
+			<Flex justify="space-around" width="30%" padding="0 100px">
 				<Link
 					as={RouteLink}
 					to="/"
 					_hover={{ textDecoration: 'none' }}>
-					<Image src={LogoImage} alt="Logo" width="auto" height="150px" />
+					<Image src={LogoImage} alt="Logo" width="auto" height="0px"/>
 				</Link>
 			</Flex>
 
