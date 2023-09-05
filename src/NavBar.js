@@ -54,6 +54,9 @@ const NavBar = ({ accounts, setAccounts }) => {
                         <span style={{ whiteSpace: 'normal' }}>Buy Packs</span>
                     </Link>
                 </Box>
+				<Spacer />
+				{/* Link to OpenSea Marketplace  */}
+				<Link href="https://opensea.io/" color="#FF6F00" margin="0 15px" textDecoration="none" target="_blank" rel="noopener noreferrer">Marketplace</Link>
 
 
 				{/* Connect */}

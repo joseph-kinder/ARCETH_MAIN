@@ -29,10 +29,11 @@
 
 body {
 	overflow: hidden;
+  margin:0;
 }
 
 .overlay {
-	opacity: 0.85;
+	opacity: 0.9;
 	width: 100%;
 	height: 100%;
 	z-index: 10;
@@ -44,13 +45,42 @@ body {
 
 .background {
   background: rgb(30,30,30);
-  background: linear-gradient(45deg, rgba(30,30,30,1) 0%, rgba(45,45,45,1) 25%, rgba(69,69,69,1) 40%, rgba(73,65,65,1) 51%, rgba(85,53,53,1) 63%, rgba(85,53,53,1) 75%, rgba(100,39,39,1) 83%, rgba(141,0,0,1) 100%);
+  background: url("./assets/background/abstract_gradient_background_for_dark_and_red_themed_website_with_orange_accents_width-1344_height-768_aspect-16-9_seed-0ts-1693846241_idx-0.png");
   background-size: cover; 
   background-position: center;
-  overflow-y: auto;
+  /* overflow-y: auto; */
   overflow-x: hidden;
 }
 
 .FMT__container {
   overflow: visible !important;
+}
+
+.hidden {
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateX(-100%);
+  transition: all 1s;
+  border-radius: 21px;
+}
+
+.show {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateX(0);
+}
+
+@media(prefers-reduced-motion) {
+  .hidden {
+    transition: none;
+  }
+}
+
+.glass {
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.33);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6.2px);
+  -webkit-backdrop-filter: blur(6.2px);
 }
