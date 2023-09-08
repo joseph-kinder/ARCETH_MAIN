@@ -20,7 +20,7 @@
 	text-align: center;
 	font-family: "DM Sans", "VT323";
 	color: black;
-  max-height: '100vh';
+  max-height: 100vh;
 	}
 
 * {
@@ -84,3 +84,4 @@ body {
   backdrop-filter: blur(6.2px);
   -webkit-backdrop-filter: blur(6.2px);
 }
+

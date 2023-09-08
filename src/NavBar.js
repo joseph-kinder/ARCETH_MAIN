@@ -5,6 +5,16 @@ import Twitter from "./assets/social-media-icons/twitter_32x32.png";
 import Email from "./assets/social-media-icons/email_32x32.png";
 import { Link as RouteLink } from 'react-router-dom'
 import LogoImage from "./assets/Firefly ARCETH-Dark Fantasy, Medieval weapons 40699 (1).png"
+import {
+	NavigationMenu,
+	NavigationMenuContent,
+	NavigationMenuIndicator,
+	NavigationMenuItem,
+	NavigationMenuLink,
+	NavigationMenuList,
+	NavigationMenuTrigger,
+	NavigationMenuViewport,
+  } from "./components/NavMenu.js"
 
 const NavBar = ({ accounts, setAccounts }) => {
 	const isConnected = Boolean(accounts[0]);
@@ -41,6 +51,16 @@ const NavBar = ({ accounts, setAccounts }) => {
 				align="center"
 				width="%"
 				padding="30px">
+				<NavigationMenu>
+					<NavigationMenuList>
+						<NavigationMenuItem>
+						<NavigationMenuTrigger>Item One</NavigationMenuTrigger>
+						<NavigationMenuContent>
+							<NavigationMenuLink>Link</NavigationMenuLink>
+						</NavigationMenuContent>
+						</NavigationMenuItem>
+					</NavigationMenuList>
+				</NavigationMenu>
 				<Link as={RouteLink} to="/about" color = "#FF6F00" margin="0 15px" textDecoration="none">About</Link>
 				<Spacer />
 				<Box margin="0 15px" textAlign="center">

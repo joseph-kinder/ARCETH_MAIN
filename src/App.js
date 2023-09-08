@@ -52,12 +52,12 @@ function App() {
         <div className="overlay">
             <div className="App">
                 <NavBar accounts={accounts} setAccounts={setAccounts} />
-                <ParallaxLayer offset={0.1} speed={0.2}>
+                <ParallaxLayer offset={0.02} speed={0.2}>
                     <Flex direction="column" justifyContent="center" align="center">
                         {location.pathname === "/" && (
                             <div>
-                                <Flex direction="column" align="center">
-                                    <Text color="#e0e0e0" fontSize="100px" fontWeight = "bold 700" fontFamily="DM Sans" >
+                                <Flex direction="column" align="center" maxHeight="300px">
+                                    <Text color="#e0e0e0" fontSize="124px" fontWeight = "bold 700" fontFamily="DM Sans" >
                                         ArcaneETH
                                     </Text>
                                 </Flex>
