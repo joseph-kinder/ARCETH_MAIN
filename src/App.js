@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import MainMint from './MainMint';
-import NavBar from './NavBar';
+import NavBar from './NavBar copy';
 import BuyPacks from './BuyPacks';
 import Home from './Home';
 import Footer from './Footer';
@@ -51,8 +51,10 @@ function App() {
             />
         <div className="overlay">
             <div className="App">
-                <NavBar accounts={accounts} setAccounts={setAccounts} />
-                <ParallaxLayer offset={0.02} speed={0.2}>
+                <ParallaxLayer factor={0.1} offset={0} speed={0.1} style={{zIndex:2}}>
+                    <NavBar accounts={accounts} setAccounts={setAccounts}/>
+                </ParallaxLayer>
+                <ParallaxLayer offset={0.1} speed={0.2} style={{zIndex:1}}>
                     <Flex direction="column" justifyContent="center" align="center">
                         {location.pathname === "/" && (
                             <div>

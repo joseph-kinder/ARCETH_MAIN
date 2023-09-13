@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Flex, Image, Link, Spacer } from '@chakra-ui/react'; 
+import { Box, Button, Flex, Image, Link, ListItem, Spacer } from '@chakra-ui/react'; 
 import Facebook from "./assets/social-media-icons/facebook_32x32.png";
 import Twitter from "./assets/social-media-icons/twitter_32x32.png";
 import Email from "./assets/social-media-icons/email_32x32.png";
@@ -14,7 +14,9 @@ import {
 	NavigationMenuList,
 	NavigationMenuTrigger,
 	NavigationMenuViewport,
+	navigationMenuTriggerStyle
   } from "./components/NavMenu.js"
+import { NewNavigationMenu } from './components/NavBarComp';
 
 const NavBar = ({ accounts, setAccounts }) => {
 	const isConnected = Boolean(accounts[0]);
@@ -33,6 +35,8 @@ const NavBar = ({ accounts, setAccounts }) => {
 		<Flex justify='space-between' align='center' padding='10px 30px'>
 			{/* Left Side - Social Media Icons */}
 
+			<NewNavigationMenu />
+
 
             {/* Center - Logo Image Link */}
 			<Flex justify="space-around" width="30%" padding="0 100px">
@@ -44,23 +48,12 @@ const NavBar = ({ accounts, setAccounts }) => {
 				</Link>
 			</Flex>
 
-
 			{/* Right Side - Sections and Connect */}
 			<Flex
 				justify="space-around"
 				align="center"
 				width="%"
 				padding="30px">
-				<NavigationMenu>
-					<NavigationMenuList>
-						<NavigationMenuItem>
-						<NavigationMenuTrigger>Item One</NavigationMenuTrigger>
-						<NavigationMenuContent>
-							<NavigationMenuLink>Link</NavigationMenuLink>
-						</NavigationMenuContent>
-						</NavigationMenuItem>
-					</NavigationMenuList>
-				</NavigationMenu>
 				<Link as={RouteLink} to="/about" color = "#FF6F00" margin="0 15px" textDecoration="none">About</Link>
 				<Spacer />
 				<Box margin="0 15px" textAlign="center">
