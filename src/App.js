@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import MainMint from './MainMint';
-import NavBar from './NavBar copy';
+import NavBar from './NavBar';
 import BuyPacks from './BuyPacks';
 import Home from './Home';
 import Footer from './Footer';

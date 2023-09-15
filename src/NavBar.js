@@ -35,7 +35,6 @@ const NavBar = ({ accounts, setAccounts }) => {
 		<Flex justify='space-between' align='center' padding='10px 30px'>
 			{/* Left Side - Social Media Icons */}
 
-			<NewNavigationMenu />
 
 
             {/* Center - Logo Image Link */}
@@ -54,23 +53,7 @@ const NavBar = ({ accounts, setAccounts }) => {
 				align="center"
 				width="%"
 				padding="30px">
-				<Link as={RouteLink} to="/about" color = "#FF6F00" margin="0 15px" textDecoration="none">About</Link>
-				<Spacer />
-				<Box margin="0 15px" textAlign="center">
-                    <Link as={RouteLink} to="/mint" color="#FF6F00" fontSize="xl" textDecoration="none">
-                        <span style={{ whiteSpace: 'normal' }}>Mint Card</span>
-                    </Link>
-                </Box>
-				<Spacer />
-				<Box margin="0 15px" textAlign="center">
-                    <Link as={RouteLink} to="/buypacks" color="#FF6F00" fontSize="xl" textDecoration="none">
-                        <span style={{ whiteSpace: 'normal' }}>Buy Packs</span>
-                    </Link>
-                </Box>
-				<Spacer />
-				{/* Link to OpenSea Marketplace  */}
-				<Link href="https://opensea.io/" color="#FF6F00" margin="0 15px" textDecoration="none" target="_blank" rel="noopener noreferrer">Marketplace</Link>
-
+				<NewNavigationMenu />
 
 				{/* Connect */}
 				{isConnected ? (
