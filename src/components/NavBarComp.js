@@ -78,7 +78,7 @@ export function NewNavigationMenu() {
 									<NavigationMenuLink asChild>
 									<a
 										className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-										href="/"
+										href="/buypacks"
 									>
 										<div className="mb-2 mt-4 text-lg font-medium">
 										Buy Packs
@@ -89,7 +89,7 @@ export function NewNavigationMenu() {
 									</a>
 									</NavigationMenuLink>
 								</li>
-								<ListItem href="/docs" title="Mint Cards">
+								<ListItem href="/mint" title="Mint Cards">
                   Create your very own NFTs with our user-friendly minting process. Turn your creations into digital collectibles in just a few clicks.
 								</ListItem>
 								<ListItem href="/docs/installation" title="OpenSea Marketplace">

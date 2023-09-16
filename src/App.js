@@ -4,6 +4,7 @@ import MainMint from './MainMint';
 import NavBar from './NavBar';
 import BuyPacks from './BuyPacks';
 import Home from './Home';
+import Balance from './Balance'
 import Footer from './Footer';
 import { useLocation, Routes, Route } from 'react-router-dom';
 import { Box, Image, Button, Flex, Input, Text } from '@chakra-ui/react';
@@ -37,7 +38,7 @@ function App() {
     hiddenElements.forEach((el) => observer.observe(el));
 
     return (
-        <Parallax pages={5}>
+        <Parallax pages={4}>
             <ParallaxLayer
             offset={0}
             speed={0.1}
@@ -54,7 +55,7 @@ function App() {
                 <ParallaxLayer factor={0.1} offset={0} speed={0.1} style={{zIndex:2}}>
                     <NavBar accounts={accounts} setAccounts={setAccounts}/>
                 </ParallaxLayer>
-                <ParallaxLayer offset={0.1} speed={0.2} style={{zIndex:1}}>
+                <ParallaxLayer offset={0.15} speed={0.2} style={{zIndex:1}}>
                     <Flex direction="column" justifyContent="center" align="center">
                         {location.pathname === "/" && (
                             <div>
@@ -100,7 +101,7 @@ function App() {
                                                         zIndex: hoveredIndex === index ? 1 : 0,
                                                         margin: '5px',
                                                         height: 'auto',
-                                                        width: '200px',
+                                                        width: '220px',
                                                         borderRadius: '21px',
                                                         transform: hoveredIndex === index ? 'scale(1.5)' : 'none',
                                                         transition: 'transform 0.3s ease 0.3s',
@@ -122,7 +123,7 @@ function App() {
                                         A new wave of trading card NFTs. The only limit is your imagination.
                                     </Text> 
                                 </Flex>
-                                <Box className="hidden glass" padding="2" maxWidth="1000px" mx="auto">
+                                <Box className=" glass" padding="2" maxWidth="1000px" mx="auto">
                                     <Flex align="center">
                                         <Image src={images[5]} height="600px" alt="Image" borderRadius="30px" mr="4" />
                                         <Flex direction="column" align="center">
@@ -138,7 +139,7 @@ function App() {
                                     </Flex>
                                 </Box>
                                 <div style={{ height: '50px'}}></div>
-                                <Box className="hidden glass" padding="2" maxWidth="1000px" mx="auto">
+                                <Box className=" glass" padding="2" maxWidth="1000px" mx="auto">
                                     <Flex align="center">
                                         <Flex direction="column" align="center">
                                             <Text fontSize="60" flex="1" fontWeight="bold 700">
@@ -200,6 +201,7 @@ function App() {
                     <Route path="/home" element={<Home accounts={accounts} setAccounts={setAccounts} />} />
                     <Route path="/mint" element={<MainMint accounts={accounts} setAccounts={setAccounts} />} />
                     <Route path="/buypacks" element={<BuyPacks accounts={accounts} setAccounts={setAccounts} />} />
+                    <Route path="/balance" element={<Balance accounts={accounts} setAccounts={setAccounts} />} />
                 </Routes>
             </div>
             <ParallaxLayer 
