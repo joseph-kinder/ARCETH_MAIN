@@ -121,7 +121,7 @@ function App() {
                                         color="#e0e0e0"
                                         >
                                         A new wave of trading card NFTs. The only limit is your imagination.
-                                    </Text> 
+                                </Text> 
                                 </Flex>
                                 <Box className=" glass" padding="2" maxWidth="1000px" mx="auto">
                                     <Flex align="center">
@@ -155,48 +155,46 @@ function App() {
 
                                     </Flex>
                                 </Box>
-                            </div>
+                            
+                            <Flex direction="column" justifyContent="center" align="center">
+                                <div style={{ width: 1000, height: 700 }}>
+                                <Carousel autoPlay={false}>
+                                    {/* Card 1 */}
+                                    <div>
+                                        <GlassBox
+                                        title="Step 1: Choose Your Theme"
+                                        description="Select a theme or concept for your AI-generated trading card. Whether it's fantasy, sci-fi, or something entirely unique, the choice is yours."
+                                        imageUrl={images[5]} // Replace with the URL of your first card image
+                                        imageOnLeft={true} // Set to true for image on the left
+                                    />
+                                    </div>
+
+                                    {/* Card 2 */}
+                                    <div>
+                                    <GlassBox
+                                        title="Step 2: Customize Your Design"
+                                        description="Personalize your card's design by providing details and preferences. Our AI will use this information to create a one-of-a-kind masterpiece."
+                                        imageUrl={images[8]} // Replace with the URL of your second card image
+                                        imageOnLeft={false} // Set to false for image on the right
+                                        />
+                                    </div>
+
+                                    {/* Card 3 */}
+                                    <div>
+                                    <GlassBox
+                                        title="Step 3: Mint Your Card"
+                                        description="Once you're satisfied with the design, mint your AI-generated trading card as an NFT. Start or expand your collection with your unique creation."
+                                        imageUrl={images[7]} // Replace with the URL of your third card image
+                                        imageOnLeft={true} // Set to true for image on the left
+                                        />
+                                    </div>
+                                </Carousel>
+                                </div>
+                            </Flex>
+                            
                         )}
                     </Flex>
                 </ParallaxLayer>
-                <ParallaxLayer offset={2.4} speed={0.2}>
-                    <Flex direction="column" justifyContent="center" align="center">
-                        <div style={{ width: 1000, height: 700 }}>
-                        <Carousel autoPlay={false}>
-                            {/* Card 1 */}
-                            <div>
-                                <GlassBox
-                                title="Step 1: Choose Your Theme"
-                                description="Select a theme or concept for your AI-generated trading card. Whether it's fantasy, sci-fi, or something entirely unique, the choice is yours."
-                                imageUrl={images[5]} // Replace with the URL of your first card image
-                                imageOnLeft={true} // Set to true for image on the left
-                            />
-                            </div>
-
-                            {/* Card 2 */}
-                            <div>
-                            <GlassBox
-                                title="Step 2: Customize Your Design"
-                                description="Personalize your card's design by providing details and preferences. Our AI will use this information to create a one-of-a-kind masterpiece."
-                                imageUrl={images[8]} // Replace with the URL of your second card image
-                                imageOnLeft={false} // Set to false for image on the right
-                                />
-                            </div>
-
-                            {/* Card 3 */}
-                            <div>
-                            <GlassBox
-                                title="Step 3: Mint Your Card"
-                                description="Once you're satisfied with the design, mint your AI-generated trading card as an NFT. Start or expand your collection with your unique creation."
-                                imageUrl={images[7]} // Replace with the URL of your third card image
-                                imageOnLeft={true} // Set to true for image on the left
-                                />
-                            </div>
-                        </Carousel>
-                        </div>
-                    </Flex>
-                </ParallaxLayer>
-
                 <Routes>
                     <Route path="/home" element={<Home accounts={accounts} setAccounts={setAccounts} />} />
                     <Route path="/mint" element={<MainMint accounts={accounts} setAccounts={setAccounts} />} />
@@ -211,6 +209,7 @@ function App() {
             >
                 <Footer /> 
             </ParallaxLayer>
+            )}
         </div>
     </Parallax>
     );

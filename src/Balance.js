@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
-import { Box, Heading, Text } from '@chakra-ui/react';
+import { Box, Grid, Heading, Text, Flex } from '@chakra-ui/react';
 
 import nftContract from './ARCETHNFT.json';
 
@@ -40,10 +40,10 @@ export default function Balance({ accounts, setAccounts }) {
   }, []);
 
   return (
-    <div>
-        <Heading>My Balances</Heading>
+    <Flex justifyContent="center" align="center">
+        <Grid templateColumns="repeat(2, 1fr)" gap={6}>
 
-        <Box maxW="300px" borderWidth="1px" borderRadius="lg" overflow="hidden" p="4">
+        <Box className="glass" maxW="300px" borderRadius="lg" overflow="hidden" p="4">
         <Heading as="h3" size="md">Common Pass</Heading>
         <Text>Balance: {balances.common}</Text>  
         </Box>
@@ -51,16 +51,28 @@ export default function Balance({ accounts, setAccounts }) {
         <Box maxW="300px" borderWidth="1px" borderRadius="lg" overflow="hidden" p="4">
         <Heading as="h3" size="md">Rare Pass</Heading>
         <Text>Balance: {balances.rare}</Text>
+        </Box>
+
+        <Box maxW="300px" borderWidth="1px" borderRadius="lg" overflow="hidden" p="4">
+        <Heading as="h3" size="md">Rare Pass</Heading>
+        <Text>Balance: {balances.rare}</Text>
         </Box>  
 
+        <Box maxW="300px" borderWidth="1px" borderRadius="lg" overflow="hidden" p="4">
+        <Heading as="h3" size="md">Rare Pass</Heading>
+        <Text>Balance: {balances.rare}</Text>
+        </Box>    
+
         {/* Other rarity balances */}
+
+        </Grid>
 
         <Box maxW="300px" borderWidth="1px" borderRadius="lg" overflow="hidden" p="4">
         <Heading as="h3" size="md">ARCETH</Heading> 
         <Text>Balance: {0} ARC</Text>
         </Box>
 
-    </div>
+    </Flex>
   )
 
 }
