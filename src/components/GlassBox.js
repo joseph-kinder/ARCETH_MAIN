@@ -5,7 +5,7 @@ const CardSection = ({ title, description, imageUrl, imageOnLeft }) => {
   const flexDirection = imageOnLeft ? 'row' : 'row-reverse';
 
   return (
-    <Box className="glass" padding="2" maxWidth="1000px" mx="auto">
+    <Box className="glass" padding="20" maxWidth="1000px" mx="auto">
       <Flex align="center" flexDirection={flexDirection}>
         {imageOnLeft && (
           <Image src={imageUrl} height="600px" alt="Image" borderRadius="30px" mr="4" />

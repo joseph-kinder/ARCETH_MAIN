@@ -37,8 +37,17 @@ function App() {
     const hiddenElements = document.querySelectorAll('.hidden');
     hiddenElements.forEach((el) => observer.observe(el));
 
+    const pageLengths = {
+        '/': 4, 
+        '/about': 2,
+        '/mint': 1,
+        '/pricing': 3
+      }
+    
+    const pages = pageLengths[location.pathname] || 4; 
+
     return (
-        <Parallax pages={4}>
+        <Parallax pages={pages}>
             <ParallaxLayer
             offset={0}
             speed={0.1}
@@ -60,9 +69,11 @@ function App() {
                         {location.pathname === "/" && (
                             <div>
                                 <Flex direction="column" align="center" maxHeight="300px">
+                                    <h1>
                                     <Text color="#e0e0e0" fontSize="124px" fontWeight = "bold 700" fontFamily="DM Sans" >
                                         ArcaneETH
                                     </Text>
+                                    </h1>
                                 </Flex>
                                 <div>
                                     <a href="https://discord.com/" target="_blank" rel="noopener noreferrer">
@@ -83,7 +94,7 @@ function App() {
                                 <div style={{height:'50px'}}/>                        
                                 <div>
                                     <Ticker 
-                                        duration={40} 
+                                        duration={60} 
                                         onMouseEnter={() => setIsPlaying(false)} 
                                         onMouseLeave={() => setIsPlaying(true)} 
                                         isPlaying={isPlaying}
@@ -101,7 +112,7 @@ function App() {
                                                         zIndex: hoveredIndex === index ? 1 : 0,
                                                         margin: '5px',
                                                         height: 'auto',
-                                                        width: '220px',
+                                                        width: '260px',
                                                         borderRadius: '21px',
                                                         transform: hoveredIndex === index ? 'scale(1.5)' : 'none',
                                                         transition: 'transform 0.3s ease 0.3s',
@@ -112,17 +123,8 @@ function App() {
                                         ))}
                                     </Ticker>
                                 </div>
-                                <Flex direction="column" align="center" >
-                                <Text
-                                        fontSize="30px"
-                                        fontWeight="700"
-                                        letterSpacing="-5.5%"
-                                        fontFamily="DM Sans"
-                                        color="#e0e0e0"
-                                        >
-                                        A new wave of trading card NFTs. The only limit is your imagination.
-                                </Text> 
-                                </Flex>
+                                <div style={{ height: '100px'}}></div>
+                                <div>
                                 <Box className=" glass" padding="2" maxWidth="1000px" mx="auto">
                                     <Flex align="center">
                                         <Image src={images[5]} height="600px" alt="Image" borderRadius="30px" mr="4" />
@@ -155,7 +157,8 @@ function App() {
 
                                     </Flex>
                                 </Box>
-                            
+                            </div>
+                            <div style={{ height: '50px'}}></div>
                             <Flex direction="column" justifyContent="center" align="center">
                                 <div style={{ width: 1000, height: 700 }}>
                                 <Carousel autoPlay={false}>
@@ -185,13 +188,13 @@ function App() {
                                         title="Step 3: Mint Your Card"
                                         description="Once you're satisfied with the design, mint your AI-generated trading card as an NFT. Start or expand your collection with your unique creation."
                                         imageUrl={images[7]} // Replace with the URL of your third card image
-                                        imageOnLeft={true} // Set to true for image on the left
+                                        imageOnLeft={false} // Set to true for image on the left
                                         />
                                     </div>
                                 </Carousel>
                                 </div>
                             </Flex>
-                            
+                            </div>
                         )}
                     </Flex>
                 </ParallaxLayer>
@@ -209,7 +212,6 @@ function App() {
             >
                 <Footer /> 
             </ParallaxLayer>
-            )}
         </div>
     </Parallax>
     );

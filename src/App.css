@@ -79,6 +79,13 @@ body {
   }
 }
 
+h1 {
+  font-size: 72px;
+  background-image: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .glass {
   /* From https://css.glass */
   background: rgba(255, 255, 255, 0.33);

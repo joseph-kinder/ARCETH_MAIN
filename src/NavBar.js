@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Box, Button, Flex, Image, Link, Spacer } from '@chakra-ui/react';
+import './App.css';
+import { Box, Button, Flex, Image, Link, Spacer, Text } from '@chakra-ui/react';
 import { Link as RouteLink } from 'react-router-dom'
 import LogoImage from "./assets/Firefly ARCETH-Dark Fantasy, Medieval weapons 40699 (1).png"
 import { cn } from "./lib/utils"
@@ -14,7 +15,9 @@ import {
   } from "./components/NavMenu"
 
 const NavBar = ({ accounts, setAccounts }) => {
-	const [isConnected, setIsConnected] = useState(Boolean(accounts[0]));
+
+	const storedAccount = localStorage.getItem('connectedAccount');
+	const [isConnected, setIsConnected] = useState(Boolean(storedAccount));
 
 	async function connectAccount() {
 		if (window.ethereum) {
@@ -23,14 +26,26 @@ const NavBar = ({ accounts, setAccounts }) => {
 		  });
 		  setAccounts(accounts);
 		  setIsConnected(true); // Set the isConnected state to true after connecting
+
+		  localStorage.setItem('connectedAccount', accounts[0])
 		}
 	  }
-
+	
+	const disconnect = () => {
+		setIsConnected(false);
+		localStorage.removeItem('connectedAccount');
+	}
 
 	return (
 		<Flex justify='space-between' align='center' padding='10px 30px'>
 			{/* Left Side - Social Media Icons */}
-
+			<Flex className="h1" direction="column" align="center" maxHeight="300px">
+				<Link as={RouteLink} to="/">
+				<Text color="#e0e0e0" fontSize="48px" fontWeight = "bold 700" fontFamily="DM Sans" >
+					ArcaneETH
+				</Text>
+				</Link>
+			</Flex>
 
 
             {/* Center - Logo Image Link */}
@@ -52,18 +67,14 @@ const NavBar = ({ accounts, setAccounts }) => {
 				<NavigationMenu>
 					<NavigationMenuList>
 						<NavigationMenuItem>
-						<Link href="/" legacyBehavior passHref>
-							<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+							<NavigationMenuLink href="/" className={navigationMenuTriggerStyle()}>
 							Home
 							</NavigationMenuLink>
-						</Link>
 						</NavigationMenuItem>
 						<NavigationMenuItem>
-						<Link href="/about" legacyBehavior passHref>
-							<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+							<NavigationMenuLink href="/about" className={navigationMenuTriggerStyle()}>
 							About
 							</NavigationMenuLink>
-						</Link>
 						</NavigationMenuItem>
 						<NavigationMenuItem>
 							<NavigationMenuTrigger>Market</NavigationMenuTrigger>
