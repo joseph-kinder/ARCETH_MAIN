@@ -3,7 +3,7 @@ import { ethers, BigNumber} from 'ethers';
 import ArcETHNFT from './ARCETHNFT.json';
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import GlassBox from './components/GlassBox';
-import { Input } from './components/Input.tsx';
+import { Input } from './components/Inputjs.js';
 
 const ArcETHaddress = '0xdfbd2ad9fa043692cb87ca24d784a1e9cce2c02e'
 
@@ -46,13 +46,22 @@ const MainMint = ({ accounts, setAccounts}) => {
 	const [rarity, setRarity] = useState("");
 
 	return (
+		// Glass box that shows please connect wallet to mint if isConnected not true:
 		<Flex justify="center" align="center" height="100vh" paddingBottom="150px">
-			<Box className="glass" padding="2" maxWidth="1000px" mx="auto">
-				<Flex align="center">
-					<Input placeholder="Prompt" type="email"/>
-				</Flex>
-			</Box>
-			<Input placeholder="Prompt" type="email"/>
+			{isConnected ? (
+				<Box className="glass" padding="2" maxWidth="1000px" mx="auto">
+					<Flex align="center">
+						<Input type="email" placeholder="Email" />
+					</Flex>
+				</Box>
+			) : (
+				<Box className="glass" padding="2" maxWidth="1000px" mx="auto">
+					<Text fontSize="60" flex="1" fontWeight="bold 700">
+						Please connect wallet to mint
+					</Text>
+				</Box>
+			)
+			}
 		</Flex>
 	);
 };

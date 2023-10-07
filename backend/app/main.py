@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import os
 import openai
 import json
@@ -6,12 +5,13 @@ import re
 import requests
 import time
 from PIL import Image, ImageFont, ImageDraw
-from moralis import evm_api
 import base64
 from flask import Flask, request, jsonify
+from api import query
+import moralis
+from fastapi import FastAPI
 
 openai.api_key = os.environ.get("OPEN_AI_API_KEY")
-url = os.environ.get("STABLE_DIFFUSION_URL")
 stable_diff_key = os.environ.get("STABLE_DIFFUSION_API_KEY")
 ipfs_api_key = os.environ.get("IPFS_API_KEY")
 
@@ -145,29 +145,13 @@ def generate_card(prompt):
 
     valid = validate_metadata('metadata.json')
 
-  image_response = stable_diff(metadata["long_description"])
-  image_response = json.loads(image_response)
-
-  print(image_response)
-
-
-  # Get image
-
-  if image_response['status'] == 'success':
-    image_url = image_response['output'][0]
-
-  elif image_response['status'] == 'processing':
-    # Wait for ETA
-    time.sleep(round(image_response['eta']))
-
-    # Fetch result
-    image_url = image_response['fetch_result']
-
-
-  _response = requests.get(image_url)
-
-  with open('img_temp.png', 'wb') as f:
-    f.write(_response.content)
+  image_bytes = query({
+    "prompt": metadata["long_description"]  
+  })
+  
+  # Save image bytes to file
+  with open('image_temp.png', 'wb') as f:
+    f.write(image_bytes)
 
   rarity = metadata['rarity']
 
@@ -493,29 +477,15 @@ def upload_json_to_ipfs(metadata, img_path):
 
   print(result)
 
+
+generate_card("A cute little doggo")
+
 """# Endpoints"""
 
-app = Flask(__name__)
+app = FastAPI()
 
-@app.route('/generate', methods=['POST'])
-def generate_nft():
-  data = request.json
-  prompt = data['prompt']
-  rarity = data['rarity']
+@app.post("/generate_card")  
+async def generate_card(prompt: str):
 
-  result = gen_card_with_rar(prompt, rarity)
-
-  if isinstance(result, str):  # Check if the result is a string
-        return jsonify({
-            'message': result  # Return the string as a response
-        })
-  elif isinstance(result, Image):  # Check if the result is an image (you need to define the Image class)
-        ipfs_uri = upload_image_to_ipfs(result)  # Upload the image to IPFS
-        return jsonify({
-            'ipfs_uri': ipfs_uri  # Return the IPFS URI as a response
-        })
-
-if __name__ == '__main__':
-  app.run()
-
-#Test comment 4
+  card = card_generator.generate_card(prompt)
+  return card
