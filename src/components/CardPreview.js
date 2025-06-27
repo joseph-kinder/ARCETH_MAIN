@@ -17,6 +17,18 @@ const CardPreview = ({ card }) => {
     Legendary: 'shadow-yellow-500/50'
   };
 
+  // Get image source - either base64 or URL
+  const getImageSrc = () => {
+    if (card.image_data) {
+      return `data:image/png;base64,${card.image_data}`;
+    } else if (card.image_url) {
+      // If it's a relative URL, prepend the API URL
+      const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+      return card.image_url.startsWith('http') ? card.image_url : `${baseUrl}${card.image_url}`;
+    }
+    return null;
+  };
+
   return (
     <motion.div
       initial={{ scale: 0.9, opacity: 0 }}
@@ -29,9 +41,9 @@ const CardPreview = ({ card }) => {
       <div className={`absolute inset-0 bg-gradient-to-br ${rarityColors[card.rarity]}`} />
       
       {/* Card Image */}
-      {card.image_url ? (
+      {getImageSrc() ? (
         <img 
-          src={card.image_url} 
+          src={getImageSrc()} 
           alt={card.name}
           className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-80"
         />
@@ -41,13 +53,21 @@ const CardPreview = ({ card }) => {
             <Zap className="w-32 h-32" />
           </div>
         </div>
-      )}      
+      )}
+      
       {/* Card Content */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
       
+      {/* Rarity Badge - Moved to avoid overlap with title */}
+      <div className="absolute top-4 left-4">
+        <div className={`px-3 py-1 rounded-full bg-gradient-to-r ${rarityColors[card.rarity]} text-white text-xs font-bold uppercase tracking-wider`}>
+          {card.rarity}
+        </div>
+      </div>
+      
       <div className="absolute bottom-0 left-0 right-0 p-6 space-y-4">
-        {/* Card Name */}
-        <h3 className="text-2xl font-bold text-white drop-shadow-lg">
+        {/* Card Name - with proper text wrapping */}
+        <h3 className="text-2xl font-bold text-white drop-shadow-lg break-words">
           {card.name}
         </h3>
         
@@ -71,13 +91,6 @@ const CardPreview = ({ card }) => {
           <div className="text-right">
             <div className="text-xs text-white/60">Element</div>
             <div className="text-sm font-semibold text-white">{card.element}</div>
-          </div>
-        </div>
-        
-        {/* Rarity Badge */}
-        <div className="absolute top-4 right-4">
-          <div className={`px-3 py-1 rounded-full bg-gradient-to-r ${rarityColors[card.rarity]} text-white text-xs font-bold uppercase tracking-wider`}>
-            {card.rarity}
           </div>
         </div>
       </div>

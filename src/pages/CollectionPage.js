@@ -3,12 +3,12 @@ import { motion } from 'framer-motion';
 import { useAccount } from 'wagmi';
 import { Package, Filter, Grid3x3 } from 'lucide-react';
 import CardPreview from '../components/CardPreview';
-import { useUserCards } from '../hooks/useUserCards';
+import { useUserCardsV3 } from '../hooks/useUserCardsV3';
 
 const CollectionPage = () => {
   const { address, isConnected } = useAccount();
   const [filterRarity, setFilterRarity] = useState('all');
-  const { cards, isLoading } = useUserCards(address);
+  const { cards, isLoading, balance } = useUserCardsV3();
 
   if (!isConnected) {
     return (
@@ -43,9 +43,10 @@ const CollectionPage = () => {
           </span>
         </h1>
         <p className="text-xl text-gray-300">
-          Manage and showcase your trading card collection
+          Your minted ArcaneETH trading cards
         </p>
       </motion.div>
+
       {/* Collection Stats */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -94,6 +95,7 @@ const CollectionPage = () => {
           ))}
         </div>
       </div>
+
       {/* Cards Grid */}
       {isLoading ? (
         <div className="flex items-center justify-center min-h-[400px]">
@@ -122,7 +124,12 @@ const CollectionPage = () => {
           <div className="text-center space-y-4">
             <Grid3x3 className="w-16 h-16 mx-auto text-gray-600" />
             <h2 className="text-2xl font-semibold">No Cards Yet</h2>
-            <p className="text-gray-400">Start creating or collecting cards to build your collection</p>
+            <p className="text-gray-400">
+              Buy packs and mint cards to build your collection!
+            </p>
+            <p className="text-sm text-gray-500">
+              Contract balance shows {balance} cards, but metadata loading may be pending.
+            </p>
           </div>
         </div>
       )}
