@@ -1,220 +1,93 @@
-import { useState, useEffect } from 'react';
-import './App.css';
-import MainMint from './MainMint';
-import NavBar from './NavBar';
-import BuyPacks from './BuyPacks';
-import Home from './Home';
-import Balance from './Balance'
-import Footer from './Footer';
-import { useLocation, Routes, Route } from 'react-router-dom';
-import { Box, Image, Button, Flex, Input, Text } from '@chakra-ui/react';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import images from './assets/example-cards/tickerimages';
-import backgroundim from './assets/background/newbackground.png';
-import { FaDiscord } from 'react-icons/fa';
-import GlassBox from './components/GlassBox';
-import Ticker from 'framer-motion-ticker';
-import Carousel from 'framer-motion-carousel';
-import { Parallax, ParallaxLayer } from '@react-spring/parallax';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { RainbowKitProvider, getDefaultWallets, connectorsForWallets } from '@rainbow-me/rainbowkit';
+import { configureChains, createConfig, WagmiConfig } from 'wagmi';
+import { base, baseSepolia, goerli } from 'wagmi/chains';
+import { publicProvider } from 'wagmi/providers/public';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Toaster } from 'react-hot-toast';
+import '@rainbow-me/rainbowkit/styles.css';
 
+// Components
+import Layout from './components/Layout';
+import HomePage from './pages/HomePage';
+import MarketplacePage from './pages/MarketplacePage';
+import CreatePage from './pages/CreatePage';
+import CollectionPage from './pages/CollectionPage';
+import ProfilePage from './pages/ProfilePage';
 
+// Styles
+import './styles/globals.css';
 
+// Configure chains
+const { chains, publicClient, webSocketPublicClient } = configureChains(
+  [base, baseSepolia, goerli],
+  [publicProvider()]
+);
+
+// Configure wallets
+const projectId = process.env.REACT_APP_WALLET_CONNECT_PROJECT_ID || 'YOUR_PROJECT_ID';
+
+const { wallets } = getDefaultWallets({
+  appName: 'ArcaneETH',
+  projectId,
+  chains,
+});
+
+const connectors = connectorsForWallets([...wallets]);
+
+// Create wagmi config
+const wagmiConfig = createConfig({
+  autoConnect: true,
+  connectors,
+  publicClient,
+  webSocketPublicClient,
+});
+
+const queryClient = new QueryClient();
 
 function App() {
-    const [accounts, setAccounts] = useState([]);
-    const [isPlaying, setIsPlaying] = useState(true);
-    const [hoveredIndex, setHoveredIndex] = useState(null);
-    const location = useLocation();
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('show');
-            }
-        });
-    });
-
-    const hiddenElements = document.querySelectorAll('.hidden');
-    hiddenElements.forEach((el) => observer.observe(el));
-
-    const pageLengths = {
-        '/': 4, 
-        '/about': 2,
-        '/mint': 1,
-        '/pricing': 3
-      }
-    
-    const pages = pageLengths[location.pathname] || 4; 
-
-    return (
-        <Parallax pages={pages}>
-            <ParallaxLayer
-            offset={0}
-            speed={0.1}
-            style={{
-                height:'auto',
-                backgroundImage: `url(${backgroundim})`,
-                backgroundRepeat: 'repeat-y',
-                backgroundSize: 'cover',
-                /* Add your existing background styles here */
+  return (
+    <WagmiConfig config={wagmiConfig}>
+      <QueryClientProvider client={queryClient}>
+        <RainbowKitProvider chains={chains}>
+          <Router>
+            <Layout>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/marketplace" element={<MarketplacePage />} />
+                <Route path="/create" element={<CreatePage />} />
+                <Route path="/collection" element={<CollectionPage />} />
+                <Route path="/profile/:address" element={<ProfilePage />} />
+              </Routes>
+            </Layout>
+          </Router>
+          <Toaster 
+            position="bottom-right"
+            toastOptions={{
+              style: {
+                background: '#1a1a1a',
+                color: '#fff',
+                border: '1px solid #333',
+              },
+              success: {
+                iconTheme: {
+                  primary: '#10b981',
+                  secondary: '#fff',
+                },
+              },
+              error: {
+                iconTheme: {
+                  primary: '#ef4444',
+                  secondary: '#fff',
+                },
+              },
             }}
-            />
-        <div className="overlay">
-            <div className="App">
-                <ParallaxLayer factor={0.1} offset={0} speed={0.1} style={{zIndex:2}}>
-                    <NavBar accounts={accounts} setAccounts={setAccounts}/>
-                </ParallaxLayer>
-                <ParallaxLayer offset={0.15} speed={0.2} style={{zIndex:1}}>
-                    <Flex direction="column" justifyContent="center" align="center">
-                        {location.pathname === "/" && (
-                            <div>
-                                <Flex direction="column" align="center" maxHeight="300px">
-                                    <h1>
-                                    <Text color="#e0e0e0" fontSize="124px" fontWeight = "bold 700" fontFamily="DM Sans" >
-                                        ArcaneETH
-                                    </Text>
-                                    </h1>
-                                </Flex>
-                                <div>
-                                    <a href="https://discord.com/" target="_blank" rel="noopener noreferrer">
-                                        <Button 
-                                            leftIcon={<FaDiscord />}
-                                            backgroundColor="#FF6F00"
-                                            borderRadius="10px"
-                                            _hover={{ bg: '#AF4C00' }}
-                                            color="white"
-                                            cursor="pointer"
-                                            fontFamily="inherit"
-                                            fontSize="32"
-                                            padding="15px"
-                                            margin="0 15px"
-                                            >Join the Discord now!</Button>   
-                                    </a> 
-                                </div>
-                                <div style={{height:'50px'}}/>                        
-                                <div>
-                                    <Ticker 
-                                        duration={60} 
-                                        onMouseEnter={() => setIsPlaying(false)} 
-                                        onMouseLeave={() => setIsPlaying(true)} 
-                                        isPlaying={isPlaying}
-                                        style={{overflow: 'visible'}}
-                                    >
-                                        {images.map((item, index) => (
-                                            <div key={index}>
-
-                                                <img
-                                                    src={item}
-                                                    onMouseEnter={() => setHoveredIndex(index)}
-                                                    onMouseLeave={() => setHoveredIndex(null)}                              
-                                                    style={{
-                                                        //position: 'relative',
-                                                        zIndex: hoveredIndex === index ? 1 : 0,
-                                                        margin: '5px',
-                                                        height: 'auto',
-                                                        width: '260px',
-                                                        borderRadius: '21px',
-                                                        transform: hoveredIndex === index ? 'scale(1.5)' : 'none',
-                                                        transition: 'transform 0.3s ease 0.3s',
-                                                        // transformOrigin: 'center center',
-                                                    }}
-                                            />
-                                            </div>
-                                        ))}
-                                    </Ticker>
-                                </div>
-                                <div style={{ height: '100px'}}></div>
-                                <div>
-                                <Box className=" glass" padding="2" maxWidth="1000px" mx="auto">
-                                    <Flex align="center">
-                                        <Image src={images[5]} height="600px" alt="Image" borderRadius="30px" mr="4" />
-                                        <Flex direction="column" align="center">
-                                            <Text fontSize="60" flex="1" fontWeight="bold 700">
-                                            AI-generated Masterpieces
-                                            </Text>
-                                            <Box maxWidth="400px">
-                                                <Text fontSize="20" flex="1">
-                                                Step into a realm where your imagination knows no bounds. With our platform, you have the power to bring your wildest ideas to life. Explore AI-generated masterpieces that are limited only by your creativity. Our advanced algorithms are at your service, ready to craft one-of-a-kind trading cards that encapsulate your unique vision. 
-                                                </Text>
-                                            </Box> 
-                                        </Flex>
-                                    </Flex>
-                                </Box>
-                                <div style={{ height: '50px'}}></div>
-                                <Box className=" glass" padding="2" maxWidth="1000px" mx="auto">
-                                    <Flex align="center">
-                                        <Flex direction="column" align="center">
-                                            <Text fontSize="60" flex="1" fontWeight="bold 700">
-                                            Join Our Thriving Community
-                                            </Text>
-                                            <Box maxWidth="400px">
-                                                <Text fontSize="20" flex="1">
-                                                Become a part of our vibrant community, where collectors, creators, and AI enthusiasts come together to share their passion. Join our Discord community and connect with like-minded individuals who are equally passionate about NFT trading cards and the limitless possibilities of AI. 
-                                                </Text>
-                                            </Box> 
-                                        </Flex>
-                                        <Image src={images[6]} height = "600px" alt="Image" borderRadius="30px" mr="4" />
-
-                                    </Flex>
-                                </Box>
-                            </div>
-                            <div style={{ height: '50px'}}></div>
-                            <Flex direction="column" justifyContent="center" align="center">
-                                <div style={{ width: 1000, height: 700 }}>
-                                <Carousel autoPlay={false}>
-                                    {/* Card 1 */}
-                                    <div>
-                                        <GlassBox
-                                        title="Step 1: Choose Your Theme"
-                                        description="Select a theme or concept for your AI-generated trading card. Whether it's fantasy, sci-fi, or something entirely unique, the choice is yours."
-                                        imageUrl={images[5]} // Replace with the URL of your first card image
-                                        imageOnLeft={true} // Set to true for image on the left
-                                    />
-                                    </div>
-
-                                    {/* Card 2 */}
-                                    <div>
-                                    <GlassBox
-                                        title="Step 2: Customize Your Design"
-                                        description="Personalize your card's design by providing details and preferences. Our AI will use this information to create a one-of-a-kind masterpiece."
-                                        imageUrl={images[8]} // Replace with the URL of your second card image
-                                        imageOnLeft={false} // Set to false for image on the right
-                                        />
-                                    </div>
-
-                                    {/* Card 3 */}
-                                    <div>
-                                    <GlassBox
-                                        title="Step 3: Mint Your Card"
-                                        description="Once you're satisfied with the design, mint your AI-generated trading card as an NFT. Start or expand your collection with your unique creation."
-                                        imageUrl={images[7]} // Replace with the URL of your third card image
-                                        imageOnLeft={false} // Set to true for image on the left
-                                        />
-                                    </div>
-                                </Carousel>
-                                </div>
-                            </Flex>
-                            </div>
-                        )}
-                    </Flex>
-                </ParallaxLayer>
-                <Routes>
-                    <Route path="/home" element={<Home accounts={accounts} setAccounts={setAccounts} />} />
-                    <Route path="/mint" element={<MainMint accounts={accounts} setAccounts={setAccounts} />} />
-                    <Route path="/buypacks" element={<BuyPacks accounts={accounts} setAccounts={setAccounts} />} />
-                    <Route path="/balance" element={<Balance accounts={accounts} setAccounts={setAccounts} />} />
-                </Routes>
-            </div>
-            <ParallaxLayer 
-                offset={4}
-                speed={0} 
-                style={{display: 'flex', alignItems: 'flex-end'}}
-            >
-                <Footer /> 
-            </ParallaxLayer>
-        </div>
-    </Parallax>
-    );
+          />
+        </RainbowKitProvider>
+      </QueryClientProvider>
+    </WagmiConfig>
+  );
 }
 
 export default App;
